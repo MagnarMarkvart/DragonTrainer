@@ -1,0 +1,13 @@
+@if (ready()) {
+  <section class="screen screen-lane">
+    <div class="menu">
+      <a class="stone-btn" routerLink="/shop">Shop</a>
+      <a class="stone-btn" routerLink="/tasks">Tasks</a>
+      <a class="stone-btn" routerLink="/reputation">Reputation</a>
+      <app-back />
+    </div>
+    <app-ended />
+  </section>
+} @else {
+  <app-spinner />
+}

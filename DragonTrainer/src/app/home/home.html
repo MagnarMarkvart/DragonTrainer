@@ -1,0 +1,16 @@
+@if (ready()) {
+  <section class="screen screen-lane">
+    <div class="menu">
+      <button type="button" (click)="startNew()" [disabled]="busy() || checking()">Start New Game</button>
+      @if (canContinue()) {
+        <button type="button" (click)="continueGame()" [disabled]="busy()">Continue Game</button>
+      }
+      <button type="button" (click)="watchBot()" [disabled]="busy() || checking()">Watch DragonBot</button>
+      @if (error()) {
+        <p class="note">{{ error() }}</p>
+      }
+    </div>
+  </section>
+} @else {
+  <app-spinner />
+}

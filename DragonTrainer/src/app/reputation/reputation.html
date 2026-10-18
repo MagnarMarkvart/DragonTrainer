@@ -1,0 +1,24 @@
+@if (ready()) {
+  <section class="screen screen-lane">
+    <div class="panel">
+      <app-back to="/play" />
+      <h1>Reputation</h1>
+      @if (game()?.reputation; as reputation) {
+        <ul class="reps">
+          <li>People {{ reputation.people }}</li>
+          <li>State {{ reputation.state }}</li>
+          <li>Underworld {{ reputation.underworld }}</li>
+        </ul>
+      } @else {
+        <p class="note">Not checked yet.</p>
+      }
+      @if (error()) {
+        <p class="note">{{ error() }}</p>
+      }
+      <button type="button" (click)="check()" [disabled]="busy()">Check reputation</button>
+    </div>
+    <app-ended />
+  </section>
+} @else {
+  <app-spinner />
+}

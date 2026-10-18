@@ -1,0 +1,59 @@
+@if (game(); as current) {
+  <ng-template #stats>
+    <span class="stat">
+      <img class="mark" src="/vectors/chess-pawn-svgrepo-com.svg" alt="Turn" />
+      {{ current.turn }}
+    </span>
+    <span class="stat">
+      <img class="mark" src="/vectors/level-four-svgrepo-com.svg" alt="Level" />
+      {{ current.level }}
+    </span>
+    <span class="stat">
+      <img src="/vectors/gold-pot-gold-svgrepo-com.svg" alt="Gold" />
+      {{ current.gold }}
+    </span>
+    <span class="stat">
+      <img src="/vectors/credit-cards-svgrepo-com.svg" alt="Score" />
+      {{ current.score }}
+    </span>
+    <span class="hearts" [attr.aria-label]="'Lives ' + current.lives">
+      @for (filled of hearts(current.lives); track $index) {
+        <svg class="heart" [class.filled]="filled" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+          />
+        </svg>
+      }
+    </span>
+  </ng-template>
+
+  <aside class="hud">
+    <div class="hud-full">
+      <ng-container [ngTemplateOutlet]="stats" />
+    </div>
+    <button
+      type="button"
+      class="hud-level"
+      (click)="toggle()"
+      [attr.aria-expanded]="statsOpen()"
+      aria-label="Level"
+    >
+      <img class="mark" src="/vectors/level-four-svgrepo-com.svg" alt="" />
+    </button>
+  </aside>
+
+  @if (statsOpen()) {
+    <div class="hud-shade" (click)="close()">
+      <div
+        class="hud-card"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Stats"
+        (click)="$event.stopPropagation()"
+      >
+        <ng-container [ngTemplateOutlet]="stats" />
+      </div>
+    </div>
+  }
+}

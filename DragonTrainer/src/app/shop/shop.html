@@ -1,0 +1,24 @@
+@if (ready()) {
+  <section class="screen screen-lane">
+    <div class="panel">
+      <app-back to="/play" />
+      <h1>Shop</h1>
+      @if (note()) {
+        <p class="note">{{ note() }}</p>
+      }
+      @if (error()) {
+        <p class="note">{{ error() }}</p>
+      }
+      <div class="stack">
+        @for (item of items(); track item.id) {
+          <button type="button" (click)="buy(item)" [disabled]="busy()">
+            {{ item.name }} — {{ item.cost }} gold
+          </button>
+        }
+      </div>
+    </div>
+    <app-ended />
+  </section>
+} @else {
+  <app-spinner />
+}

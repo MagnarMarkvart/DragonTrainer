@@ -1,0 +1,41 @@
+@if (ready()) {
+  <section class="screen screen-wall">
+    <app-back to="/play" />
+    @if (error()) {
+      <div class="board-status">
+        <p>{{ error() }}</p>
+        <a class="stone-btn" routerLink="/">Back</a>
+      </div>
+    }
+    <div class="board">
+      @for (task of tasks(); track task.adId) {
+        <button type="button" class="ad" (click)="solve(task)" [disabled]="busy()">
+          <span class="ad-shape" [style.background-color]="styleOf(task.difficulty).color"></span>
+          <span class="ad-copy" [style.color]="styleOf(task.difficulty).ink">
+            <span class="ad-difficulty">{{ styleOf(task.difficulty).label }}</span>
+            <span class="ad-message">{{ task.message }}</span>
+            <span class="ad-meta">{{ task.reward }} gold · {{ task.expiresIn }} turns</span>
+          </span>
+        </button>
+      }
+    </div>
+    @if (attempt(); as task) {
+      <div class="attempt-shade"></div>
+      <div class="attempt-center">
+        @if (phase() === 'success') {
+          <p class="outcome success">You Succeed!</p>
+        } @else if (phase() === 'fail') {
+          <p class="outcome fail">You fail!</p>
+        } @else {
+          <div class="attempt-copy" [class.fading]="phase() === 'fading'">
+            <p>You attempt to:</p>
+            <p>{{ task.message }}</p>
+          </div>
+        }
+      </div>
+    }
+    <app-ended />
+  </section>
+} @else {
+  <app-spinner />
+}

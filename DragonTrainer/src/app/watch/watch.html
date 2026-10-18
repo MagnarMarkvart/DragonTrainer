@@ -1,0 +1,18 @@
+@if (ready()) {
+  <section class="screen screen-lane">
+    <div class="watch-fade"></div>
+    <app-back (pressed)="leave()" />
+    <div class="watch-center">
+      <p>{{ text() }}</p>
+      @if (reputation(); as reputation) {
+        <ul class="reps">
+          <li>People {{ reputation.people }}</li>
+          <li>State {{ reputation.state }}</li>
+          <li>Underworld {{ reputation.underworld }}</li>
+        </ul>
+      }
+    </div>
+  </section>
+} @else {
+  <app-spinner />
+}
